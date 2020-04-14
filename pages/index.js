@@ -1,20 +1,18 @@
-import React from 'react';
-import Link from 'next/link';
+import React from 'react'
+import Link from 'next/link'
+import { FlightLogo } from '../components/Logo'
 
 export default function Home() {
   return (
     <main>
-      <h1>Home Page</h1>
       <article>
+        <FlightLogo subtitle='Find your perfect flight!' />
         <section>
-          <h2>Promotions</h2>
-        </section>
-        <section>
-          <Link href="/search">
-            <a>Search</a>
+          <Link href='/search'>
+            <button type='button'>Search</button>
           </Link>
         </section>
       </article>
     </main>
-  );
+  )
 }

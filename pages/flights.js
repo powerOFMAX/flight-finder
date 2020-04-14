@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 export default function Flights() {
   return (
@@ -38,5 +38,5 @@ export default function Flights() {
         </section>
       </article>
     </main>
-  );
+  )
 }
