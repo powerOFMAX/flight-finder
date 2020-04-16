@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import Link from 'next/link'
+import { Element, scroller } from 'react-scroll'
 import { routes } from '../routes.json'
-import { Wrapper } from '../components/Flights'
-import { FlightLogo } from '../components/Logo'
+import { Wrapper } from '../components/Search'
 import AirportCards from '../components/AirportCards'
+import Layout from '../components/Layout'
+import FlightsContext from '../components/context'
 
 /* Here should be a card approach list of all available origin
 airports. When an origin airport is selected, the list should
@@ -26,6 +28,8 @@ export default function Search() {
     destination: {}
   })
 
+  const { update } = useContext(FlightsContext)
+
   const onSelectCard = (card) => {
     const option = Object.keys(card)[0]
 
@@ -36,11 +40,19 @@ export default function Search() {
     })
   }
 
-  return (
+  function scrollTo(element) {
+    scroller.scrollTo(element, {
+      duration: 1000,
+      delay: 100,
+      smooth: true,
+      offset: 0
+    })
+  }
+
+  const renderContent = () => (
     <main>
       <article>
         <Wrapper>
-          <FlightLogo subtitle='Select an airport' />
           <section>
             <AirportCards
               routes={routes}
@@ -50,26 +62,33 @@ export default function Search() {
             />
           </section>
           <section>
+            <Element name='destination' />
             <div className='destination-wrapper'>
               <h2>Select a destination</h2>
             </div>
           </section>
           <section>
             {Object.keys(state.origin).length > 0
-            && (
-            <AirportCards
-              routes={state.origin.destinations}
-              location={state.destination}
-              onClick={(value) => onSelectCard(value)}
-              option='destination'
-            />
-            )}
+              && (
+              <AirportCards
+                routes={state.origin.destinations}
+                location={state.destination}
+                onClick={(value) => onSelectCard(value)}
+                option='destination'
+              />
+              )}
           </section>
+          <Element name='search' />
           <Link href='/flights'>
-            <button type='button'>Start your journey!</button>
+            <button type='button' onClick={() => update(state)}>Start your journey!</button>
           </Link>
         </Wrapper>
+        {Object.keys(state.origin).length > 0 && scrollTo('destination')}
+        {Object.keys(state.destination).length > 0 && scrollTo('search')}
       </article>
     </main>
+  )
+  return (
+    <Layout content={renderContent()} subtitle='Select an airport' />
   )
 }

@@ -26,7 +26,7 @@ const AirportCard = ({ routes, location, onClick, option }) => (
 )
 
 AirportCard.propTypes = {
-  routes: PropTypes.object,
+  routes: PropTypes.array,
   location: PropTypes.object,
   onClick: PropTypes.func,
   option: PropTypes.string

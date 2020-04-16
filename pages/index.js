@@ -1,12 +1,11 @@
 import React from 'react'
 import Link from 'next/link'
-import { FlightLogo } from '../components/Logo'
+import Layout from '../components/Layout'
 
 export default function Home() {
-  return (
+  const renderContent = () => (
     <main>
       <article>
-        <FlightLogo subtitle='Find your perfect flight!' />
         <section>
           <Link href='/search'>
             <button type='button'>Search</button>
@@ -14,5 +13,8 @@ export default function Home() {
         </section>
       </article>
     </main>
+  )
+  return (
+    <Layout content={renderContent()} subtitle='Find your perfect flight!' />
   )
 }

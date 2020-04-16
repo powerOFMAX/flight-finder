@@ -20,8 +20,8 @@ Card.propTypes = {
   description: PropTypes.string,
   location: PropTypes.object,
   countryCode: PropTypes.string,
-  isSelected: PropTypes.string,
-  hasLocation: PropTypes.string,
+  isSelected: PropTypes.bool,
+  hasLocation: PropTypes.number,
   index: PropTypes.number,
   onClick: PropTypes.func
 }

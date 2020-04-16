@@ -1,10 +1,18 @@
+/* eslint-disable */
 import App from 'next/app'
 import React from 'react'
 import Head from 'next/head'
 import GlobalStyles from '../config/globalStyles'
-/* eslint-disable */
+import FlightContext from '../components/context'
+import { ThemeProvider } from 'styled-components'
+import { theme } from '../config/theme'
 
 class MyApp extends App {
+  state = {
+    origin: {},
+    destination: {}
+  }
+
   static async getInitialProps({ Component, router, ctx }) {
     let pageProps = {}
 
@@ -15,15 +23,23 @@ class MyApp extends App {
     return { pageProps }
   }
 
+  updateContext = ({origin, destination}) => {
+    this.setState({...this.state, origin, destination})
+  }
+
   render() {
     const { Component, pageProps } = this.props
     return (
       <>
-        <GlobalStyles />
-        <Head>
-          <title>Flight Finder</title>
-        </Head>
-        <Component {...pageProps} />
+        <ThemeProvider theme={theme}>
+          <GlobalStyles />
+          <Head>
+            <title>Flight Finder</title>
+          </Head>
+          <FlightContext.Provider value={{ origin: this.state.origin, destination: this.state.destination, update: this.updateContext}}>
+            <Component {...pageProps} /> 
+          </FlightContext.Provider>
+        </ThemeProvider>
       </>
     )
   }
