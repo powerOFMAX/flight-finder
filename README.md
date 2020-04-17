@@ -1,44 +1,42 @@
-[![Deploy to now](https://deploy.now.sh/static/button.svg)](https://deploy.now.sh/?repo=https://github.com/zeit/next.js/tree/master/examples/hello-world)
+# React Flight Finder
 
-# Hello World example
+This is a simple flight finder built using NextJS and Styled Components.
 
-## How to use
+Check out a demo on Sandbox: https://codesandbox.io/s/github/powerOFMAX/flight-finder
 
-### Using `create-next-app`
+![Flight Finder Image](https://i.imgur.com/KjCrKun.jpg)
 
-Execute [`create-next-app`](https://github.com/segmentio/create-next-app) with [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) or [npx](https://github.com/zkat/npx#readme) to bootstrap the example:
+## Things to know:
+Given that this sample was build for front-end purposes this will not include a back-end connection. Instead, we are grabbing some fake values from some JSON files. The only flights available are EPA-COR and EPA-MDZ.
 
-```bash
-npx create-next-app --example hello-world hello-world-app
-# or
-yarn create next-app --example hello-world hello-world-app
+## Requirements
+Given that this project is based on 'create-next-app' the requirements are the same ones.
+
+- Node >= 10.13
+
+## How to set up the project
+The basic steps to set up the project are:
+- Clone the repo
+- Open the folder
+- Run ```npm install```
+- Run ```npm start```
+
+This project also has ESlint configured so, you have two more scripts that you can use:
+- ```npm run lint```
+- ```npm run lint:fix```
+
+If you need more specific steps, follow the next ones.
+
+First, clone the repository or download it as a zip. To clone use this command:
+
+```
+  git clone https://github.com/powerOFMAX/flight-finder.git
 ```
 
-### Download manually
+Go to the main folder using  ```cd flight-finder/```
 
-Download the example:
-
-```bash
-curl https://codeload.github.com/zeit/next.js/tar.gz/canary | tar -xz --strip=2 next.js-canary/examples/hello-world
-cd hello-world
+Open the terminal on that folder and run
 ```
-
-Install it and run:
-
-```bash
-npm install
-npm run dev
-# or
-yarn
-yarn dev
+  npm install
 ```
-
-Deploy it to the cloud with [now](https://zeit.co/now) ([download](https://zeit.co/download))
-
-```bash
-now
-```
-
-## The idea behind the example
-
-This example shows the most basic idea behind Next. We have 2 pages: `pages/index.js` and `pages/about.js`. The former responds to `/` requests and the latter to `/about`. Using `next/link` you can add hyperlinks between them with universal routing capabilities. The `day` directory shows that you can have subdirectories.
+Once its done, run ```npm run dev``` and you should be able to see the project up and running on ```http://localhost:3000/```
