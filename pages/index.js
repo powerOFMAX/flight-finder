@@ -1,14 +1,15 @@
 import React from 'react'
 import Link from 'next/link'
 import Layout from '../components/Layout'
+import { Button } from '../components/Button'
 
 export default function Home() {
   const renderContent = () => (
     <main>
       <article>
-        <section>
+        <section className='text-center'>
           <Link href='/search'>
-            <button type='button'>Search</button>
+            <Button type='button'>Search</Button>
           </Link>
         </section>
       </article>

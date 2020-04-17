@@ -5,8 +5,8 @@ const LogoWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #ffb33e;
-  border-bottom: 1px solid #e0dcd5;
+  color: ${(props) => props.theme.colors.yellowOrange};
+  border-bottom: 1px solid ${(props) => props.theme.colors.vistaWhite};
   padding-bottom: 20px;
 
   h1 {

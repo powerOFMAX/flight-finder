@@ -1,9 +1,15 @@
-import React from 'react'
-import { useContext } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
+import { Element, scroller } from 'react-scroll'
+import styled from 'styled-components'
 import FlightsContext from '../components/context'
-import { getFlights } from '../utils'
 import FlightResult from '../components/FlightResult'
 import Layout from '../components/Layout'
+
+const FinalPrice = styled.h2`
+  color: ${(props) => props.theme.colors.bokaraGrey};
+  border-top: 1px solid ${(props) => props.theme.colors.vistaWhite};
+  padding: 20px 0;
+`
 
 /**
   Here it should be a flight list with all available outbound flights
@@ -14,47 +20,85 @@ import Layout from '../components/Layout'
     Display the location city name
     Display the flight times and duration
     Display the price for the leg
- * 
+ *
  */
 
 export default function Flights() {
   const { origin, destination } = useContext(FlightsContext)
-  const flights = getFlights(origin.code, destination.code)
-  // console.log(getFlights('EPA', 'COR'))
+  const [state, setState] = useState({
+    outbound: {},
+    inbound: {}
+  })
 
-  const renderContent = () => {
-    return (
-      <main>
+  function scrollTo(element) {
+    scroller.scrollTo(element, {
+      duration: 1000,
+      delay: 100,
+      smooth: true,
+      offset: -20
+    })
+  }
+
+  const onSelectCard = (item, option) => {
+    setState({
+      ...state,
+      [option]: item
+    })
+  }
+
+  useEffect(() => {
+    if (Object.keys(state.outbound).length > 0) {
+      return scrollTo('inbound')
+    }
+    if (Object.keys(state.inbound).length > 0) return scrollTo('final-price')
+    return scrollTo('outbound')
+  })
+
+  const renderContent = () => (
+    <main>
+      <article>
+        <section>
+          <Element name='outbound' />
+          <FlightResult
+            originCode={origin.code}
+            destinationCode={destination.code}
+            type='outbound'
+            selectedId={state.outbound && state.outbound.id}
+            onClick={(item, type) => onSelectCard(item, type)}
+            cityName={Object.keys(destination).length > 0 ? destination.location.cityName : ''}
+          />
+        </section>
+      </article>
+      <Element name='inbound' />
+      {Object.keys(state.outbound).length > 0
+        && (
         <article>
-          <h2>Choose your outbound flight to Mendoza</h2>
           <section>
             <FlightResult
-              flights={flights}
+              originCode={destination.code}
+              destinationCode={origin.code}
+              type='inbound'
+              selectedId={state.inbound && state.inbound.id}
+              onClick={(item, type) => onSelectCard(item, type)}
+              cityName={Object.keys(origin).length > 0 ? origin.location.cityName : ''}
             />
           </section>
         </article>
-        <article>
-          <h2>Choose your inbound flight to Buenos Aires</h2>
-          <section>
-            <p>
-              Here it should be a flight list with all available inbound flights
-              for the selected trip.
-            </p>
-            <ul>
-              <li>A dummy image</li>
-              <li>Should be selectable by clicking the whole card</li>
-              <li>Display the airport code</li>
-              <li>Display the location city name</li>
-              <li>Display the flight times and duration</li>
-              <li>Display the price for the leg</li>
-            </ul>
-          </section>
+        )}
+      {Object.keys(state.outbound).length > 0 && Object.keys(state.inbound).length > 0
+        && (
+        <article className='text-center'>
+          <FinalPrice>
+            Total to pay:
+            {state.inbound.fares[0].prices.afterTax + state.outbound.fares[0].prices.afterTax}
+          </FinalPrice>
         </article>
-      </main>
-    )
-  }
+        )}
+      <Element name='final-price' />
+    </main>
+  )
 
   return (
-    <Layout content={renderContent()} subtitle={'Choose your outbound flight to Mendoza'}/>
+    <Layout content={renderContent()} />
   )
 }

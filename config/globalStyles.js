@@ -20,6 +20,9 @@ const DefaultStyles = css`
     display: flex;
     justify-content: center;
   }
+  .text-center {
+    text-align: center;
+  }
 `
 
 export default createGlobalStyle`

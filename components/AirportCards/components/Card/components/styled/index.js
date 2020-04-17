@@ -33,7 +33,7 @@ export const Wrapper = styled.div`
     font-size: 30px;
     text-align: center;
     padding: 10px;
-    color: #1d1818d9;
+    color: ${(props) => props.theme.colors.bokaraGrey};
   }
 
   .image-wrapper {

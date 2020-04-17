@@ -5,9 +5,9 @@ import { Logo } from './components/Logo'
 
 const Wrapper = styled.div`
   text-align: center;
-  color: #ffb33e;
+  color: ${(props) => props.theme.colors.yellowOrange};
   h2 {
-    border-bottom: 1px solid #e0dcd5;
+    border-bottom: 1px solid ${(props) => props.theme.colors.vistaWhite};
     padding-bottom: 20px;
   }
 `

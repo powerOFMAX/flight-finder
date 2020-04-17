@@ -6,6 +6,7 @@ import { Wrapper } from '../components/Search'
 import AirportCards from '../components/AirportCards'
 import Layout from '../components/Layout'
 import FlightsContext from '../components/context'
+import { Button } from '../components/Button'
 
 /* Here should be a card approach list of all available origin
 airports. When an origin airport is selected, the list should
@@ -45,9 +46,31 @@ export default function Search() {
       duration: 1000,
       delay: 100,
       smooth: true,
-      offset: 0
+      offset: 20
     })
   }
+
+  const renderDestination = () => (
+    <>
+      <section>
+        <div className='destination-wrapper'>
+          <h2>Select a destination</h2>
+        </div>
+      </section>
+      <section>
+        {Object.keys(state.origin).length > 0
+          && (
+          <AirportCards
+            routes={state.origin.destinations}
+            location={state.destination}
+            onClick={(value) => onSelectCard(value)}
+            option='destination'
+          />
+          )}
+      </section>
+      {scrollTo('destination')}
+    </>
+  )
 
   const renderContent = () => (
     <main>
@@ -61,29 +84,18 @@ export default function Search() {
               option='origin'
             />
           </section>
-          <section>
-            <Element name='destination' />
-            <div className='destination-wrapper'>
-              <h2>Select a destination</h2>
-            </div>
-          </section>
-          <section>
-            {Object.keys(state.origin).length > 0
-              && (
-              <AirportCards
-                routes={state.origin.destinations}
-                location={state.destination}
-                onClick={(value) => onSelectCard(value)}
-                option='destination'
-              />
-              )}
-          </section>
+          <Element name='destination' />
+          {Object.keys(state.origin).length > 0 && renderDestination()}
           <Element name='search' />
-          <Link href='/flights'>
-            <button type='button' onClick={() => update(state)}>Start your journey!</button>
-          </Link>
+          {Object.keys(state.destination).length > 0
+            && (
+            <div className='button-next text-center'>
+              <Link href='/flights'>
+                <Button type='button' onClick={() => update(state)}>Start your journey!</Button>
+              </Link>
+            </div>
+            )}
         </Wrapper>
-        {Object.keys(state.origin).length > 0 && scrollTo('destination')}
         {Object.keys(state.destination).length > 0 && scrollTo('search')}
       </article>
     </main>
