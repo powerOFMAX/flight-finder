@@ -33,6 +33,11 @@ export const Wrapper = styled.div`
     justify-content: space-evenly;
     align-items: center;
   }
+
+  @media (max-width: 768px) {
+    padding: 20px;
+    width: 90%;
+  }
 `
 
 export const Price = styled.div`
@@ -75,6 +80,7 @@ export const Chevron = styled.span`
   width: 30px;
   height: 30px;
   mask-image: url('https://image.flaticon.com/icons/svg/271/271220.svg');
+  mask-repeat: no-repeat;
   display: inline-block;
   background-color: white;
 `

@@ -89,8 +89,7 @@ export default function Flights() {
         && (
         <article className='text-center'>
           <FinalPrice>
-            Total to pay:
-            {state.inbound.fares[0].prices.afterTax + state.outbound.fares[0].prices.afterTax}
+            {`Total to pay: ${state.inbound.fares[0].prices.afterTax + state.outbound.fares[0].prices.afterTax}`}
           </FinalPrice>
         </article>
         )}
