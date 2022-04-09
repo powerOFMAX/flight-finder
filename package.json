@@ -9,7 +9,7 @@
     "lint:fix": "./node_modules/.bin/eslint . --ext .js,.jsx --fix"
   },
   "dependencies": {
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "next": "latest",
     "prop-types": "^15.7.2",
     "react": "^16.7.0",
